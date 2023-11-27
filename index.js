@@ -1,6 +1,9 @@
+// Import the dotenv library to load environment variables
+const dotenv = require('dotenv');
+dotenv.config(); // Load environment variables from the .env file
+
 const express = require('express');
 const cors = require('cors'); 
-require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -18,7 +21,6 @@ var corsOptions = {
 
 app.use(express.json());
 app.use(cors(corsOptions));
-
 
 // Students route
 app.get('/api/v1/students', (req, res) => {

@@ -1,0 +1,17 @@
+# @name testAuth
+POST https://dev-e4fcat4qg5tbti01.us.auth0.com/oauth/token 
+content-type: application/json
+
+{"client_id":"hsq8dXsHg9w7tDQRlxMpkznMb6eK5OLJ",
+"client_secret":"wPoSF5bE3Xb3mDDwlOw5qf8uyqsgQ88-9kuk_pwD_68mPb_MwY8ByWAtsn0uPFdb",
+"audience":"SS00226489","grant_type":"client_credentials"}
+
+###
+
+GET http://localhost:3000/api/v1/contacts
+Authorization: Bearer {{testAuth.response.body.access_token}}
+
+###
+
+GET http://localhost:3000/api/v1/contacts
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImRHSzA3emppWk1EZnRvOWJmVmZtbiJ9.eyJpc3MiOiJodHRwczovL2Rldi1odGpyZHh5dTJwODd6anNtLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJKZ01pMFRjcFI5MWRkM0lBR3Ftd2xDeXlZdmM1OE5ROUBjbGllbnRzIiwiYXVkIjoiVW5hMjAyMyIsImlhdCI6MTcwMDg0MTc4MSwiZXhwIjoxNzAwOTI4MTgxLCJhenAiOiJKZ01pMFRjcFI5MWRkM0lBR3Ftd2xDeXlZdmM1OE5ROSIsImd0eSI6ImNsaWVudC1jcmVkZW50aWFscyJ9.UbzSia5waGsqU_NmlyFRvud-scY8RYh36Yxlp0Udrgqjurlda4O67TwkSJ8rdTbWiOQ_h126CtF53t4Sus01WQQ9A-FdJMearUMkBxuUNxsFuRNukuwkTZA-TFnknbPY6F2-XeUiSyqh8O8UB1xWkn6b4edZwiU6FobZlT2Fed_lD343UXJUDC5oqwWMsO0UnM0m3EwCxSd-MIBqN7yk3E2Apx-papLkab1MFXQhqNtHtYRxPErL545kZ-MQ3AOsjrNvD69Ekf1ahpeGUYerqCvgoWpLxggkI36ZtvosuI1AmZdlpRPZS-v2ZfPw4DcjyFzh6UY-wjFXvtFbzkS5Lg
