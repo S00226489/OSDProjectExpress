@@ -1,0 +1,70 @@
+@port = 3000
+
+###
+### For testing a simple get on the whole resource collection
+## expected result an array of students
+GET http://localhost:{{port}}/api/v1/students HTTP/1.1
+
+###
+### POST Request for a student 
+## Expected result is the added student data
+POST http://localhost:{{port}}/api/v1/students HTTP/1.1
+content-type: application/json
+
+{ 
+  "name" : "Jeff Bezos",
+  "studentNumber" : "S001",
+  "email": "jeff@university.com"
+}
+
+###
+### POST Request for another student 
+## Expected result is the added student data
+POST http://localhost:{{port}}/api/v1/students HTTP/1.1
+content-type: application/json
+
+{ 
+  "name" : "Una L'Estrange",
+  "studentNumber" : "S002",
+  "email": "una.lestrange@university.com"
+}
+
+###
+### GET Request for all students 
+# @name getAllStudents
+GET http://localhost:{{port}}/api/v1/students HTTP/1.1
+
+###
+### GET Request for the first student 
+## Expected result is the first student's data
+@firstID = {{getAllStudents.response.body.$[0]._id }}
+
+GET http://localhost:{{port}}/api/v1/students/{{firstID}} HTTP/1.1
+
+###
+### GET Request for the 2nd student 
+## Expected result is the second student's data
+@secondID = {{getAllStudents.response.body.$[1]._id }}
+
+GET http://localhost:{{port}}/api/v1/students/{{secondID}} HTTP/1.1
+
+###
+### GET Request for a non-existent student 
+## Expected result is a 404 Not Found
+GET http://localhost:{{port}}/api/v1/students/67 HTTP/1.1
+
+###
+### DELETE Request for the first student 
+## Expected result is the deletion confirmation
+DELETE http://localhost:{{port}}/api/v1/students/{{firstID}} HTTP/1.1
+
+###
+### PUT Request for updating a student 
+## Expected result is the updated student data
+PUT http://localhost:{{port}}/api/v1/students/{{firstID}} HTTP/1.1
+content-type: application/json
+
+{
+  "studentNumber" : "SS001-Updated",
+  "email": "updated-email@university.com"
+}
