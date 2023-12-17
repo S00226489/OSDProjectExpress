@@ -23,14 +23,12 @@ app.use(express.json());
 app.use(cors(corsOptions));
 
 // Students route
-app.get('/api/v1/students', (req, res) => {
-  res.json(students);
-});
+
 
 app.use('/api/v1/contacts/', contacts);
 app.use('/api/v1/events/', events);
 app.use('/', home);
-app.use('/contacts', cors(), contacts);
+
 app.use('/api/v1/students', students);
 app.use('/students', cors(), students);
 
