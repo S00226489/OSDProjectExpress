@@ -1,18 +1,13 @@
-const mongoose  = require('mongoose');
-
-
-const bookingSchema = new mongoose.Schema({
-    dateMade : {type: Date, default : Date()},
-    contact: mongoose.Types.ObjectId
-})
+const mongoose = require('mongoose');
 
 const eventSchema = new mongoose.Schema({
-    name: {type: String, required: true},
-    dateOfEvent: Date,
-    bookings: [bookingSchema],
-    numberOfPlaces: Number
-})
+  name: { type: String, required: true },
+  date: Date,
+  location: String,
+  description: String,
+  society: { type: mongoose.Schema.Types.ObjectId, ref: 'Society' } // Link back to Society
+});
 
-const Event = mongoose.model('event', eventSchema);
+const Event = mongoose.model('Event', eventSchema);
 
-module.exports = {Event}
+module.exports = Event;
