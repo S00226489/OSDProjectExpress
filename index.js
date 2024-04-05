@@ -3,17 +3,20 @@ const dotenv = require('dotenv');
 dotenv.config(); // Load environment variables from the .env file
 
 const express = require('express');
-const cors = require('cors'); 
+const cors = require('cors');
 
 const app = express();
 const port = process.env.PORT || 3001;
 
-const db = require('./database');
+// Importing route modules
+const db = require('./database'); // Assuming this sets up your database connection
 const contacts = require('./routes/contacts');
 const events = require('./routes/events');
 const home = require('./routes/home');
 const students = require('./routes/students');
+const societies = require('./routes/societies'); // Ensure you have this route module set up
 
+// Setting up CORS
 var corsOptions = {
   origin: 'http://localhost:4200',
   optionsSuccessStatus: 200,
@@ -22,14 +25,11 @@ var corsOptions = {
 app.use(express.json());
 app.use(cors(corsOptions));
 
-// Students route
-
-
+// Using route modules
 app.use('/api/v1/contacts/', contacts);
 app.use('/api/v1/events/', events);
 app.use('/', home);
-
 app.use('/api/v1/students', students);
-app.use('/students', cors(), students);
+app.use('/api/v1/societies', societies); // Include societies in the API
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
