@@ -1,0 +1,43 @@
+###
+### POST Request to create a Football society
+## Expected result is the added society data
+POST http://localhost:3000/api/v1/societies HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Football Society",
+  "description": "For fans and players of football, organizing matches and watching games together."
+}
+
+###
+### POST Request to create a Music society
+## Expected result is the added society data
+POST http://localhost:3000/api/v1/societies HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Music Society",
+  "description": "Connecting musicians and music lovers for jam sessions, concerts, and music appreciation."
+}
+
+###
+### POST Request to create a Basketball society
+## Expected result is the added society data
+POST http://localhost:3000/api/v1/societies HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Basketball Society",
+  "description": "A community for basketball enthusiasts to play, learn, and watch games together."
+}
+
+###
+### POST Request to create a Mature Students society
+## Expected result is the added society data
+POST http://localhost:3000/api/v1/societies HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Mature Students Society",
+  "description": "Supporting mature students through networking events, workshops, and social gatherings."
+}

@@ -1,63 +1,82 @@
 const express = require('express');
+const Society = require('../models/societies');
+
+
 const router = express.Router();
-const Society = require('../models/society'); // Assume your society model file is named society.js
 
-router.get('/', async (req, res) => {
-  try {
-    const societies = await Society.find();
-    res.status(200).json(societies);
-  } catch (error) {
-    res.status(500).send(`Database error: ${error}`);
-  }
-});
-
+// POST: Add a new society
 router.post('/', async (req, res) => {
-  const society = new Society({
-    ...req.body // Spread operator to copy all properties from the request body to the new Society object
-  });
+    let society = new Society(req.body);
+    console.log(society); // Check what was received
 
-  try {
-    const savedSociety = await society.save();
-    res.status(201).json(savedSociety);
-  } catch (error) {
-    res.status(400).send(`Error creating society: ${error}`);
-  }
-});
-
-router.put('/:id', async (req, res) => {
-  try {
-    const updatedSociety = await Society.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!updatedSociety) {
-      return res.status(404).send('Society not found');
+    try {
+        society = await society.save();
+        res.location(`${society._id}`).status(201).json(society);
+    } catch (error) {
+        res.status(500).send('db_error ' + error);
     }
-    res.json(updatedSociety);
-  } catch (error) {
-    res.status(400).send(`Error updating society: ${error}`);
-  }
 });
 
-router.delete('/:id', async (req, res) => {
-  try {
-    const society = await Society.findByIdAndDelete(req.params.id);
-    if (!society) {
-      return res.status(404).send('Society not found');
+// GET: Retrieve all societies
+router.get('/', async (req, res) => {
+    console.log('in get route');
+    try {
+        const societies = await Society.find();
+        res.json(societies);
+    } catch (error) {
+        res.status(500).json('db error ' + error);
     }
-    res.send({ message: `Society '${society.name}' successfully deleted.` });
-  } catch (error) {
-    res.status(500).send(`Database error: ${error}`);
-  }
 });
 
+// GET: Retrieve a society by ID
 router.get('/:id', async (req, res) => {
-  try {
-    const society = await Society.findById(req.params.id);
-    if (!society) {
-      return res.status(404).send('Society not found');
+    let id = req.params.id;
+
+    try {
+        const society = await Society.findById(id);
+
+        if (society) {
+            res.json(society);
+        } else {
+            res.status(404).json('not found');
+        }
+    } catch (error) {
+        res.status(404).json('id is incorrect' + error);
     }
-    res.json(society);
-  } catch (error) {
-    res.status(500).send(`Database error: ${error}`);
-  }
+});
+
+// DELETE: Remove a society by ID
+router.delete('/:id', async (req, res) => {
+    let id = req.params.id;
+
+    try {
+        const society = await Society.findByIdAndDelete(id);
+
+        if (society) {
+            res.json(society);
+        } else {
+            res.status(404).json('not found');
+        }
+    } catch (error) {
+        res.status(404).json('id is incorrect' + error);
+    }
+});
+
+// PUT: Update a society by ID
+router.put('/:id', async (req, res) => {
+    let id = req.params.id;
+
+    try {
+        const society = await Society.findByIdAndUpdate(id, req.body, { new: true });
+
+        if (society) {
+            res.json(society);
+        } else {
+            res.status(404).json('not found');
+        }
+    } catch (error) {
+        res.status(404).json('id is incorrect' + error);
+    }
 });
 
 module.exports = router;

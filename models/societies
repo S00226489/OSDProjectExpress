@@ -1,0 +1,10 @@
+const mongoose = require('mongoose');
+
+const societySchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    description: String,
+});
+
+const Society = mongoose.model('Society', societySchema);
+
+module.exports = Society;
